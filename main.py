@@ -3,7 +3,7 @@ from viterbi import HiddenMarkovModel, Viterbi
 
 def main():
     """
-    This function should
+    This function should print the observed sequence for the full_weather example 
    
     """
     
