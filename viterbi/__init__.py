@@ -1,5 +1,5 @@
 """
-UCSF BMI203: Biocomputing Algorithms
+UCSF BMI203: Biocomputing Algorithms 2024
 Author:
 Date:
 Package: 
