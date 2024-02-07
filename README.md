@@ -9,7 +9,7 @@ In this assignment, you'll implement the Forward and Viterbi Algorithms (dynamic
 
 The goal of this assignment is to implement the Forward and Viterbi Algorithms for Hidden Markov Models (HMMs)
 
-For a helpful refresher on HMMs and the Viterbi Algorithm you can check out the resources [here](https://web.stanford.edu/~jurafsky/slp3/A.pdf), 
+For a helpful refresher on HMMs and the Forward and Viterbi Algorithms you can check out the resources [here](https://web.stanford.edu/~jurafsky/slp3/A.pdf), 
 [here](https://towardsdatascience.com/markov-and-hidden-markov-model-3eec42298d75), and [here](https://pieriantraining.com/viterbi-algorithm-implementation-in-python-a-practical-guide/). 
 
 
@@ -19,16 +19,16 @@ For a helpful refresher on HMMs and the Viterbi Algorithm you can check out the 
 ## Tasks and Data 
 Please complete the `forward` and `viterbi` functions in the HiddenMarkovModel class. 
 
-We have provided two HMM models (mini_weather_hmm.npz and full_weather_hmm.npz) which explore the relationships between observable weather phenomenon and the temperature outside. Both include the following arrays:
+We have provided two HMM models (mini_weather_hmm.npz and full_weather_hmm.npz) which explore the relationships between observable weather phenomenon and the temperature outside. Start with the mini_weather_hmm model for testing and debugging. Both include the following arrays:
 * `hidden_states`: list of possible hidden states 
 * `observation_states`: list of possible observation states 
 * `prior_p`: prior probabilities of hidden states (in order given in `hidden_states`) 
 * `transition_p`: transition probabilities of hidden states 
-* `emission_p`: emission probabilities (transition --> hidden)
+* `emission_p`: emission probabilities (hidden --> observation)
 
-Start with the mini_weather_hmm model for testing and debugging. 
 
-For both datasets, we provide input observation sequences and the solution for their best hidden state sequences. 
+
+For both datasets, we also provide input observation sequences and the solution for their best hidden state sequences. 
  * `observation_state_sequence`: observation sequence to test 
 * `best_hidden_state_sequence`: correct hidden state_sequence 
 
