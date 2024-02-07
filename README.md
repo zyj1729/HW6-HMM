@@ -37,16 +37,16 @@ Within your code, consider the scope of the inputs and how the different paramet
 
 ## Task List
 
-[TODO] Implement the Viterbi Algorithm
+[TODO] Implement the Viterbi Algorithm <br>
   [ ] complete the `viterbi` function in the HiddenMarkovModelClass
 
-[TODO] Unit Testing  
-  [ ] Ensure functionality on mini and full weather dataset 
+[TODO] Unit Testing  <br>
+  [ ] Ensure functionality on mini and full weather dataset <br>
   [ ] Account for edge cases 
 
-[TODO] Packaging 
-  [ ] Update README with description of your methods 
-  [ ] pip installable module (optional)
+[TODO] Packaging <br>
+  [ ] Update README with description of your methods <br>
+  [ ] pip installable module (optional)<br>
   [ ] github actions (install + pytest) (optional)
 
 
