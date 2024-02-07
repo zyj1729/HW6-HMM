@@ -1,13 +1,13 @@
 # HW6-HMM
 
-In this assignment, you'll implement the Viterbi Algorithm (dynamic programming). 
+In this assignment, you'll implement the Forward and Viterbi Algorithms (dynamic programming). 
 
 
 # Assignment
 
 ## Overview 
 
-The goal of this assignment is to implement the Viterbi Algorithm for Hidden Markov Models (HMMs)
+The goal of this assignment is to implement the Forward and Viterbi Algorithms for Hidden Markov Models (HMMs)
 
 For a helpful refresher on HMMs and the Viterbi Algorithm you can check out the resources [here](https://web.stanford.edu/~jurafsky/slp3/A.pdf), 
 [here](https://towardsdatascience.com/markov-and-hidden-markov-model-3eec42298d75), and [here](https://pieriantraining.com/viterbi-algorithm-implementation-in-python-a-practical-guide/). 
@@ -17,13 +17,23 @@ For a helpful refresher on HMMs and the Viterbi Algorithm you can check out the 
 
 
 ## Tasks and Data 
-Please complete the `viterbi` function in the HiddenMarkovModel class. 
+Please complete the `forward` and `viterbi` functions in the HiddenMarkovModel class. 
 
-We have provided two HMM models (mini_weather_hmm.npz and full_weather_hmm.npz) which explore the relationships between observable weather phenomenon and the temperature outside. Both include arrays with the hidden and observation states, along with their corresponding prior, transition, and emission probabilities. Start with the mini_weather_hmm model for testing and debugging. 
+We have provided two HMM models (mini_weather_hmm.npz and full_weather_hmm.npz) which explore the relationships between observable weather phenomenon and the temperature outside. Both include the following arrays:
+* `hidden_states`: list of possible hidden states 
+* `observation_states`: list of possible observation states 
+* `prior_p`: prior probabilities of hidden states (in order given in `hidden_states`) 
+* `transition_p`: transition probabilities of hidden states 
+* `emission_p`: emission probabilities (transition --> hidden)
+
+Start with the mini_weather_hmm model for testing and debugging. 
 
 For both datasets, we provide input observation sequences and the solution for their best hidden state sequences. 
+    * `observation_state_sequence`: observation sequence to test 
+    * `best_hidden_state_sequence`: correct hidden state_sequence 
 
-Create an HMM class instance for both models and test that your Viterbi implementation returns the correct hidden state sequence for each of the observation sequences.
+
+Create an HMM class instance for both models and test that your Forward and Viterbi implementation returns the correct probabilities and hidden state sequence for each of the observation sequences.
 
 Finally, please update your README with a brief description of your methods. 
 
@@ -37,8 +47,9 @@ Within your code, consider the scope of the inputs and how the different paramet
 
 ## Task List
 
-[TODO] Implement the Viterbi Algorithm <br>
-  [ ] complete the `viterbi` function in the HiddenMarkovModelClass
+[TODO] Complete the HiddenMarkovModel Class methods  <br>
+  [ ] complete the `forward` function in the HiddenMarkovModelClass
+  [ ] complete the `viterbi` function in the HiddenMarkovModelClass <br>
 
 [TODO] Unit Testing  <br>
   [ ] Ensure functionality on mini and full weather dataset <br>
@@ -55,10 +66,10 @@ Push your code to GitHub with passing unit tests, and submit a link to your repo
 
 ### Grading 
 
-* Viterbi implementation (6 points)
-    * Viterbi forward is correct (3)
-    * Backtracing is correct (1)
-    *  Output is correct on small weather dataset (1)
+* Algorithm implementation (6 points)
+    * Forward algorithm is correct (2)
+    * Viterbi is correct (2)
+    * Output is correct on small weather dataset (1)
     * Output is correct on full weather dataset (1)
 
 * Unit Tests (3 points)

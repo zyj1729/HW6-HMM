@@ -20,6 +20,11 @@ def test_mini_weather():
     mini_hmm=np.load('./data/mini_weather_hmm.npz')
     mini_input=np.load('./data/mini_weather_sequences.npz')
 
+
+
+
+
+
     
    
     pass

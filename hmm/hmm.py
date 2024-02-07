@@ -27,6 +27,27 @@ class HiddenMarkovModel:
         self.emission_p = emission_p
 
 
+    def forward(self, decode_observation_states: np.ndarray) -> list:
+        """
+        TODO
+
+        This function runs the viterbi algorithm on an input sequence of observation states
+
+        Args:
+            decode_observation_states (np.ndarray): observation states to decode 
+
+        Returns:
+            fo: most likely list of hidden states that generated the sequence observed states
+        """        
+        
+        # Step 1. Initialize variables
+        
+       
+        # Step 2. Calculate probabilities
+
+
+        # Step 3. Return final probability 
+        
 
 
     def viterbi(self, decode_observation_states: np.ndarray) -> list:
@@ -52,17 +73,9 @@ class HiddenMarkovModel:
        
        # Step 2. Calculate Probabilities
 
-       #loop through each time point in sequence 
-        for t in range(1, len(decode_observation_states)):
-            pass
-
-            #loop through each hidden state
-            for hidden_state in range(len(self.hidden_states)):
-                pass
-    
             
         # Step 3. Traceback 
 
 
         # Step 4. Return best hidden state sequence 
-        return best_hidden_state_sequence
+        
