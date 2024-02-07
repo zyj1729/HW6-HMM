@@ -3,15 +3,17 @@ class HiddenMarkovModel:
     """_summary_
     """
 
-    def __init__(self, observation_states: np.ndarray, hidden_states: np.ndarray, prior_probs: np.ndarray, transition_probs: np.ndarray, emission_probs: np.ndarray):
-        """_summary_
+    def __init__(self, observation_states: np.ndarray, hidden_states: np.ndarray, prior_p: np.ndarray, transition_p: np.ndarray, emission_p: np.ndarray):
+        """
+
+        Initialization of HMM object
 
         Args:
-            observation_states (np.ndarray): _description_
-            hidden_states (np.ndarray): _description_
-            prior_probabilities (np.ndarray): _description_
-            transition_probabilities (np.ndarray): _description_
-            emission_probabilities (np.ndarray): _description_
+            observation_states (np.ndarray): observed states 
+            hidden_states (np.ndarray): hidden states 
+            prior_p (np.ndarray): prior probabities of hidden states 
+            transition_p (np.ndarray): transition probabilites between hidden states
+            emission_p (np.ndarray): emission probabilites from transition to hidden states 
         """             
         self.observation_states = observation_states
         self.observation_states_dict = {observation_state: index \
@@ -22,9 +24,9 @@ class HiddenMarkovModel:
                                    for index, hidden_state in enumerate(list(self.hidden_states))}
         
 
-        self.prior_probs= prior_probs
-        self.transition_probs = transition_probs
-        self.emission_probs = emission_probs
+        self.prior_p= prior_p
+        self.transition_p = transition_p
+        self.emission_p = emission_p
 
 
 
@@ -33,7 +35,6 @@ class HiddenMarkovModel:
         """
         TODO 
         Args:
-            blah blah
 
 
         Returns:
