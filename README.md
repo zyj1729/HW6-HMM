@@ -29,19 +29,19 @@ We have provided two HMM models (mini_weather_hmm.npz and full_weather_hmm.npz) 
 Start with the mini_weather_hmm model for testing and debugging. 
 
 For both datasets, we provide input observation sequences and the solution for their best hidden state sequences. 
-    * `observation_state_sequence`: observation sequence to test 
-    * `best_hidden_state_sequence`: correct hidden state_sequence 
+ * `observation_state_sequence`: observation sequence to test 
+* `best_hidden_state_sequence`: correct hidden state_sequence 
 
 
 Create an HMM class instance for both models and test that your Forward and Viterbi implementation returns the correct probabilities and hidden state sequence for each of the observation sequences.
-
-Finally, please update your README with a brief description of your methods. 
 
 Within your code, consider the scope of the inputs and how the different parameters of the input data could break the bounds of your implementation.
   * Do your model probabilites add up to the correct values? Is scaling required?
   * How will your model handle zero-probability transitions? 
   * Are the inputs in compatible shapes/sizes which each other? 
   * Ensure that your code accomodates at least 2 of these possible edge cases. 
+
+Finally, please update your README with a brief description of your methods. 
 
 
 
