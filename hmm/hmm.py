@@ -1,6 +1,7 @@
 import numpy as np
 class HiddenMarkovModel:
-    """_summary_
+    """
+    Class for Hidden Markov Model 
     """
 
     def __init__(self, observation_states: np.ndarray, hidden_states: np.ndarray, prior_p: np.ndarray, transition_p: np.ndarray, emission_p: np.ndarray):
@@ -27,17 +28,17 @@ class HiddenMarkovModel:
         self.emission_p = emission_p
 
 
-    def forward(self, decode_observation_states: np.ndarray) -> list:
+    def forward(self, input_observation_states: np.ndarray) -> float:
         """
-        TODO
+        TODO 
 
-        This function runs the viterbi algorithm on an input sequence of observation states
+        This function runs the forward algorithm on an input sequence of observation states
 
         Args:
-            decode_observation_states (np.ndarray): observation states to decode 
+            input_observation_states (np.ndarray): observation sequence to run forward algorithm on 
 
         Returns:
-            fo: most likely list of hidden states that generated the sequence observed states
+            forward_probability (float): forward probability (likelihood) for the input observed sequence  
         """        
         
         # Step 1. Initialize variables
@@ -57,7 +58,7 @@ class HiddenMarkovModel:
         This function runs the viterbi algorithm on an input sequence of observation states
 
         Args:
-            decode_observation_states (np.ndarray): observation states to decode 
+            decode_observation_states (np.ndarray): observation state sequence to decode 
 
         Returns:
             best_hidden_state_sequence(list): most likely list of hidden states that generated the sequence observed states
@@ -67,7 +68,7 @@ class HiddenMarkovModel:
         
         #store probabilities of hidden state at each step 
         viterbi_table = np.zeros((len(decode_observation_states), len(self.hidden_states)))
-        #for use with traceback, to store best path
+        #store best path for traceback
         best_path = np.zeros(len(decode_observation_states))         
         
        

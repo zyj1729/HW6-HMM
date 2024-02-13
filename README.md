@@ -7,7 +7,7 @@ In this assignment, you'll implement the Forward and Viterbi Algorithms (dynamic
 
 ## Overview 
 
-The goal of this assignment is to implement the Forward and Viterbi Algorithms for Hidden Markov Models (HMMs)
+The goal of this assignment is to implement the Forward and Viterbi Algorithms for Hidden Markov Models (HMMs).
 
 For a helpful refresher on HMMs and the Forward and Viterbi Algorithms you can check out the resources [here](https://web.stanford.edu/~jurafsky/slp3/A.pdf), 
 [here](https://towardsdatascience.com/markov-and-hidden-markov-model-3eec42298d75), and [here](https://pieriantraining.com/viterbi-algorithm-implementation-in-python-a-practical-guide/). 
@@ -23,14 +23,14 @@ We have provided two HMM models (mini_weather_hmm.npz and full_weather_hmm.npz) 
 * `hidden_states`: list of possible hidden states 
 * `observation_states`: list of possible observation states 
 * `prior_p`: prior probabilities of hidden states (in order given in `hidden_states`) 
-* `transition_p`: transition probabilities of hidden states 
-* `emission_p`: emission probabilities (hidden --> observation)
+* `transition_p`: transition probabilities of hidden states (in order given in `hidden_states`)
+* `emission_p`: emission probabilities (`hidden_states` --> `observation_states`)
 
 
 
 For both datasets, we also provide input observation sequences and the solution for their best hidden state sequences. 
  * `observation_state_sequence`: observation sequence to test 
-* `best_hidden_state_sequence`: correct hidden state_sequence 
+* `best_hidden_state_sequence`: correct viterbi hidden state sequence 
 
 
 Create an HMM class instance for both models and test that your Forward and Viterbi implementation returns the correct probabilities and hidden state sequence for each of the observation sequences.
@@ -39,7 +39,8 @@ Within your code, consider the scope of the inputs and how the different paramet
   * Do your model probabilites add up to the correct values? Is scaling required?
   * How will your model handle zero-probability transitions? 
   * Are the inputs in compatible shapes/sizes which each other? 
-  * Ensure that your code accomodates at least 2 of these possible edge cases. 
+  * Any other edge cases you can think of?
+  * Ensure that your code accomodates at least 2 possible edge cases. 
 
 Finally, please update your README with a brief description of your methods. 
 
@@ -62,7 +63,7 @@ Finally, please update your README with a brief description of your methods.
 
 
 ## Completing the Assignment 
-Push your code to GitHub with passing unit tests, and submit a link to your repository [here](insert link here)
+Push your code to GitHub with passing unit tests, and submit a link to your repository [here](https://forms.gle/xw98ZVQjaJvZaAzSA)
 
 ### Grading 
 
