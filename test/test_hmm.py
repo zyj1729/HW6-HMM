@@ -68,7 +68,7 @@ def test_full_weather():
     pred = mine.viterbi(full_input["observation_state_sequence"])
     
     hidden_states = np.array(['hot', 'temperate', 'cold', 'freezing'])
-    model = hmm.CategoricalHMM(n_components=4)
+    model = hm.CategoricalHMM(n_components=4)
     model.startprob_ = full_hmm["prior_p"]
     model.transmat_ = full_hmm["transition_p"]
     model.emissionprob_ = full_hmm["emission_p"]
