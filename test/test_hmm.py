@@ -39,12 +39,12 @@ def test_mini_weather():
     model.emissionprob_ = mini_hmm["emission_p"]
     observation_states = np.array(['sunny', 'rainy'])
     observation_map = {state: index for index, state in enumerate(observation_states)}
-    observed_sequence = np.array([observation_map[state] for state in full_input["observation_state_sequence"]]).reshape(-1, 1)
+    observed_sequence = np.array([observation_map[state] for state in mini_input["observation_state_sequence"]]).reshape(-1, 1)
 
     logprob = model.score(observed_sequence)
     
     assert abs(prob - logprob) < 0.0000001, "The forward probability is incorrect"
-    assert pred == mini_input["best_hidden_state_sequence"], "The predicted hidden state sequence is incorrect"
+    assert pred == list(mini_input["best_hidden_state_sequence"]), "The predicted hidden state sequence is incorrect"
 
 
 
@@ -79,7 +79,7 @@ def test_full_weather():
     logprob = model.score(observed_sequence)
     
     assert abs(prob - logprob) < 0.0000001, "The forward probability is incorrect"
-    assert pred == full_input["best_hidden_state_sequence"], "The predicted hidden state sequence is incorrect"
+    assert pred == list(full_input["best_hidden_state_sequence"]), "The predicted hidden state sequence is incorrect"
 
 
 
