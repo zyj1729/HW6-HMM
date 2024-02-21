@@ -42,12 +42,20 @@ class HiddenMarkovModel:
         """        
         
         # Step 1. Initialize variables
-        
+        self.forward_p = np.zeros([self.prior_p.shape[0], input_observation_states.shape[0]])
+        obs_sequence = [np.where(self.observation_states == i)[0][0] for i in input_observation_states]
+        for j in range(self.prior_p.shape[0]):
+            self.forward_p[j][0] = np.log(self.prior_p[j]) + np.log(self.emission_p[j][obs_sequence[0]])
        
         # Step 2. Calculate probabilities
-
-
-        # Step 3. Return final probability 
+        for i in range(1, len(obs_sequence)):
+            for j in range(self.prior_p.shape[0]):
+                self.forward_p[j][i] = np.logaddexp.reduce(
+                    [self.forward_p[k][i - 1] + np.log(self.transition_p[k][j]) for k in range(self.prior_p.shape[0])]
+                ) + np.log(self.emission_p[j, obs_sequence[i]])
+    
+        # Step 3. Return final probability
+        return np.logaddexp.reduce(self.forward_p[:, -1])
         
 
 
@@ -65,18 +73,36 @@ class HiddenMarkovModel:
         """        
         
         # Step 1. Initialize variables
-        
-        #store probabilities of hidden state at each step 
-        viterbi_table = np.zeros((len(decode_observation_states), len(self.hidden_states)))
+        #store probabilities of hidden state at each step
+        n_obs = len(decode_observation_states)
+        n_states = len(self.hidden_states)
+        viterbi_table = np.zeros((n_states, n_obs))
         #store best path for traceback
-        best_path = np.zeros(len(decode_observation_states))         
+        best_path = np.zeros(len(decode_observation_states))    
         
-       
-       # Step 2. Calculate Probabilities
-
-            
+        backtrace = np.zeros((n_states, n_obs), dtype = int)
+        
+        # Step 2. Calculate probability
+        for s in range(n_states):
+            viterbi_table[s, 0] = np.log(self.prior_p[s]) + np.log(self.emission_p[s, obs_indices[0]])
+        for t in range(1, n_obs):
+            for s in range(n_states):
+                max_prob = -np.inf
+                max_state = 0
+                for ss in range(n_states):
+                    prob = viterbi_table[ss, t-1] + np.log(self.transition_p[ss, s]) + np.log(self.emission_p[s, obs_indices[t]])
+                    if prob > max_prob:
+                        max_prob = prob
+                        max_state = ss
+                viterbi_table[s, t] = max_prob
+                backtrace[s, t] = max_state
+        
         # Step 3. Traceback 
-
+        last_state = np.argmax(viterbi_table[:, -1])
+        best_path = [last_state]
+        for t in range(n_obs - 1, 0, -1):
+            last_state = backtrace[last_state, t]
+            best_path.insert(0, last_state)
 
         # Step 4. Return best hidden state sequence 
-        
+        return [self.hidden_states[state] for state in best_path]
