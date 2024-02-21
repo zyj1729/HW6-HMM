@@ -1,85 +1,52 @@
-# HW6-HMM
+![BuildStatus](https://github.com/zyj1729/HW6-HMM/actions/workflows/main.yml/badge.svg?event=push)
+# Hidden Markov Model Implementation
 
-In this assignment, you'll implement the Forward and Viterbi Algorithms (dynamic programming). 
+This repository contains a Python implementation of a Hidden Markov Model (HMM), a statistical model which is especially known for its application in temporal pattern recognition such as speech, handwriting, gesture recognition, part-of-speech tagging, musical score following, partial discharges, and bioinformatics.
 
+## Description
 
-# Assignment
+The implementation includes two main algorithms:
 
-## Overview 
+1. **Forward Algorithm**: Used to calculate the likelihood of a sequence of observed events given the model parameters. This is essential for understanding how well the model explains the observed data.
 
-The goal of this assignment is to implement the Forward and Viterbi Algorithms for Hidden Markov Models (HMMs).
+2. **Viterbi Algorithm**: Utilized to determine the most likely sequence of hidden states that results in a sequence of observed events. This is particularly useful for making predictions based on observed sequences.
 
-For a helpful refresher on HMMs and the Forward and Viterbi Algorithms you can check out the resources [here](https://web.stanford.edu/~jurafsky/slp3/A.pdf), 
-[here](https://towardsdatascience.com/markov-and-hidden-markov-model-3eec42298d75), and [here](https://pieriantraining.com/viterbi-algorithm-implementation-in-python-a-practical-guide/). 
+## Methods
 
+### Initialization
 
+The `HiddenMarkovModel` class is initialized with the following parameters:
 
+- `observation_states`: An array of observable states in the model.
+- `hidden_states`: An array of hidden states in the model.
+- `prior_p`: The initial probability distribution over hidden states.
+- `transition_p`: The state transition probability matrix.
+- `emission_p`: The emission probability matrix.
 
+### Forward Algorithm
 
-## Tasks and Data 
-Please complete the `forward` and `viterbi` functions in the HiddenMarkovModel class. 
+The `forward` method implements the Forward algorithm to compute the log likelihood of an observed sequence under the model. It initializes the forward probabilities, iteratively computes the probabilities for each state at each time step, and finally aggregates the probabilities to get the total likelihood of the observation sequence.
 
-We have provided two HMM models (mini_weather_hmm.npz and full_weather_hmm.npz) which explore the relationships between observable weather phenomenon and the temperature outside. Start with the mini_weather_hmm model for testing and debugging. Both include the following arrays:
-* `hidden_states`: list of possible hidden states 
-* `observation_states`: list of possible observation states 
-* `prior_p`: prior probabilities of hidden states (in order given in `hidden_states`) 
-* `transition_p`: transition probabilities of hidden states (in order given in `hidden_states`)
-* `emission_p`: emission probabilities (`hidden_states` --> `observation_states`)
+### Viterbi Algorithm
 
+The `viterbi` method implements the Viterbi algorithm, which computes the most likely sequence of hidden states given the observed sequence. It initializes the Viterbi table and backtrace table, iteratively updates these tables to keep track of the maximum probabilities and their corresponding states, and performs a traceback from the final state to construct the most likely sequence of hidden states.
 
+## Testing
 
-For both datasets, we also provide input observation sequences and the solution for their best hidden state sequences. 
- * `observation_state_sequence`: observation sequence to test 
-* `best_hidden_state_sequence`: correct viterbi hidden state sequence 
+The repository also includes test cases for validating the implementation of the Forward and Viterbi algorithms using small and full weather datasets. These tests ensure the correctness of the algorithm implementations by comparing the results against known expected outcomes and a reference implementation.
 
+## Usage
 
-Create an HMM class instance for both models and test that your Forward and Viterbi implementation returns the correct probabilities and hidden state sequence for each of the observation sequences.
+To use this HMM implementation, simply import the `HiddenMarkovModel` class from the module and instantiate it with your model parameters. Then, you can use the `forward` method to calculate the likelihood of an observation sequence or the `viterbi` method to find the most likely sequence of hidden states.
 
-Within your code, consider the scope of the inputs and how the different parameters of the input data could break the bounds of your implementation.
-  * Do your model probabilites add up to the correct values? Is scaling required?
-  * How will your model handle zero-probability transitions? 
-  * Are the inputs in compatible shapes/sizes which each other? 
-  * Any other edge cases you can think of?
-  * Ensure that your code accomodates at least 2 possible edge cases. 
+```python
+from hmm_implementation import HiddenMarkovModel
 
-Finally, please update your README with a brief description of your methods. 
+# Initialize the HMM with your parameters
+hmm = HiddenMarkovModel(observation_states, hidden_states, prior_p, transition_p, emission_p)
 
+# Calculate the likelihood of an observation sequence
+likelihood = hmm.forward(observation_sequence)
 
-
-## Task List
-
-[TODO] Complete the HiddenMarkovModel Class methods  <br>
-  [ ] complete the `forward` function in the HiddenMarkovModelClass <br>
-  [ ] complete the `viterbi` function in the HiddenMarkovModelClass <br>
-
-[TODO] Unit Testing  <br>
-  [ ] Ensure functionality on mini and full weather dataset <br>
-  [ ] Account for edge cases 
-
-[TODO] Packaging <br>
-  [ ] Update README with description of your methods <br>
-  [ ] pip installable module (optional)<br>
-  [ ] github actions (install + pytest) (optional)
-
-
-## Completing the Assignment 
-Push your code to GitHub with passing unit tests, and submit a link to your repository [here](https://forms.gle/xw98ZVQjaJvZaAzSA)
-
-### Grading 
-
-* Algorithm implementation (6 points)
-    * Forward algorithm is correct (2)
-    * Viterbi is correct (2)
-    * Output is correct on small weather dataset (1)
-    * Output is correct on full weather dataset (1)
-
-* Unit Tests (3 points)
-    * Mini model unit test (1)
-    * Full model unit test (1)
-    * Edge cases (1)
-
-* Style (1 point)
-    * Readable code and updated README with a description of your methods 
-
-* Extra credit (0.5 points)
-    * Pip installable and Github actions (0.5)
+# Find the most likely sequence of hidden states
+hidden_states_sequence = hmm.viterbi(observation_sequence)
