@@ -1,7 +1,7 @@
 import pytest
 from hmm import HiddenMarkovModel
 import numpy as np
-import hmmlearn as hm
+from hmmlearn import hmm
 
 def test_mini_weather():
     """
@@ -33,7 +33,7 @@ def test_mini_weather():
     pred = mine.viterbi(mini_input["observation_state_sequence"])
     
     hidden_states = np.array(['hot', 'cold'])
-    model = hm.CategoricalHMM(n_components=2)
+    model = hmm.CategoricalHMM(n_components=2)
     model.startprob_ = mini_hmm["prior_p"]
     model.transmat_ = mini_hmm["transition_p"]
     model.emissionprob_ = mini_hmm["emission_p"]
@@ -68,7 +68,7 @@ def test_full_weather():
     pred = mine.viterbi(full_input["observation_state_sequence"])
     
     hidden_states = np.array(['hot', 'temperate', 'cold', 'freezing'])
-    model = hm.CategoricalHMM(n_components=4)
+    model = hmm.CategoricalHMM(n_components=4)
     model.startprob_ = full_hmm["prior_p"]
     model.transmat_ = full_hmm["transition_p"]
     model.emissionprob_ = full_hmm["emission_p"]
