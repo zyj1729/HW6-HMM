@@ -63,7 +63,7 @@ def test_full_weather():
     full_hmm=np.load('./data/full_weather_hmm.npz')
     full_input=np.load('./data/full_weather_sequences.npz')
 
-    mine = HiddenMarkovModel(mini_full["observation_states"], mini_full["hidden_states"], mini_full["prior_p"], mini_full["transition_p"], mini_full["emission_p"])
+    mine = HiddenMarkovModel(full_hmm["observation_states"], full_hmm["hidden_states"], full_hmm["prior_p"], full_hmm["transition_p"], full_hmm["emission_p"])
     prob = mine.forward(full_input["observation_state_sequence"])
     pred = mine.viterbi(full_input["observation_state_sequence"])
     

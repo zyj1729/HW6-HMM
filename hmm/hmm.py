@@ -81,6 +81,7 @@ class HiddenMarkovModel:
         best_path = np.zeros(len(decode_observation_states))    
         
         backtrace = np.zeros((n_states, n_obs), dtype = int)
+        obs_indices = [self.observation_states_dict[obs] for obs in decode_observation_states]
         
         # Step 2. Calculate probability
         for s in range(n_states):
