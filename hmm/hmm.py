@@ -30,66 +30,61 @@ class HiddenMarkovModel:
 
     def forward(self, input_observation_states: np.ndarray) -> float:
         """
-        TODO 
-
-        This function runs the forward algorithm on an input sequence of observation states
+        Implements the forward algorithm to compute the likelihood of an observed sequence.
 
         Args:
-            input_observation_states (np.ndarray): observation sequence to run forward algorithm on 
+            input_observation_states (np.ndarray): Sequence of observed states.
 
         Returns:
-            forward_probability (float): forward probability (likelihood) for the input observed sequence  
+            float: Log likelihood of the observed sequence under the model.
         """        
         
-        # Step 1. Initialize variables
-        self.forward_p = np.zeros([self.prior_p.shape[0], input_observation_states.shape[0]])
-        obs_sequence = [np.where(self.observation_states == i)[0][0] for i in input_observation_states]
-        for j in range(self.prior_p.shape[0]):
+        # Initialize the forward probability matrix with zeros
+        self.forward_p = np.zeros([len(self.hidden_states), len(input_observation_states)])
+        # Convert the sequence of observed states to their corresponding indices
+        obs_sequence = [self.observation_states_dict[i] for i in input_observation_states]
+        # Initialize the first column of the forward matrix
+        for j in range(len(self.hidden_states)):
             self.forward_p[j][0] = np.log(self.prior_p[j]) + np.log(self.emission_p[j][obs_sequence[0]])
        
-        # Step 2. Calculate probabilities
+        # Iteratively fill in the forward matrix
         for i in range(1, len(obs_sequence)):
-            for j in range(self.prior_p.shape[0]):
+            for j in range(len(self.hidden_states)):
                 self.forward_p[j][i] = np.logaddexp.reduce(
-                    [self.forward_p[k][i - 1] + np.log(self.transition_p[k][j]) for k in range(self.prior_p.shape[0])]
+                    [self.forward_p[k][i - 1] + np.log(self.transition_p[k][j]) for k in range(len(self.hidden_states))]
                 ) + np.log(self.emission_p[j, obs_sequence[i]])
     
-        # Step 3. Return final probability
+        # Compute the log likelihood of the observed sequence
         return np.logaddexp.reduce(self.forward_p[:, -1])
-        
-
 
     def viterbi(self, decode_observation_states: np.ndarray) -> list:
         """
-        TODO
-
-        This function runs the viterbi algorithm on an input sequence of observation states
+        Implements the Viterbi algorithm to find the most likely sequence of hidden states given an observed sequence.
 
         Args:
-            decode_observation_states (np.ndarray): observation state sequence to decode 
+            decode_observation_states (np.ndarray): Sequence of observed states.
 
         Returns:
-            best_hidden_state_sequence(list): most likely list of hidden states that generated the sequence observed states
+            list: The most likely sequence of hidden states.
         """        
         
-        # Step 1. Initialize variables
-        #store probabilities of hidden state at each step
+        # Initialize the Viterbi and backtrace matrices
         n_obs = len(decode_observation_states)
         n_states = len(self.hidden_states)
         viterbi_table = np.zeros((n_states, n_obs))
-        #store best path for traceback
-        best_path = np.zeros(len(decode_observation_states))    
-        
-        backtrace = np.zeros((n_states, n_obs), dtype = int)
+        backtrace = np.zeros((n_states, n_obs), dtype=int)
+
+        # Convert the sequence of observed states to their corresponding indices
         obs_indices = [self.observation_states_dict[obs] for obs in decode_observation_states]
         
-        # Step 2. Calculate probability
+        # Initialize the first column of the Viterbi matrix
         for s in range(n_states):
             viterbi_table[s, 0] = np.log(self.prior_p[s]) + np.log(self.emission_p[s, obs_indices[0]])
+
+        # Fill in the Viterbi matrix and keep track of back pointers
         for t in range(1, n_obs):
             for s in range(n_states):
                 max_prob = -np.inf
-                max_state = 0
                 for ss in range(n_states):
                     prob = viterbi_table[ss, t-1] + np.log(self.transition_p[ss, s]) + np.log(self.emission_p[s, obs_indices[t]])
                     if prob > max_prob:
@@ -98,12 +93,12 @@ class HiddenMarkovModel:
                 viterbi_table[s, t] = max_prob
                 backtrace[s, t] = max_state
         
-        # Step 3. Traceback 
+        # Traceback to find the most likely sequence of hidden states
         last_state = np.argmax(viterbi_table[:, -1])
         best_path = [last_state]
         for t in range(n_obs - 1, 0, -1):
             last_state = backtrace[last_state, t]
             best_path.insert(0, last_state)
 
-        # Step 4. Return best hidden state sequence 
+        # Return the most likely sequence of hidden states
         return [self.hidden_states[state] for state in best_path]
